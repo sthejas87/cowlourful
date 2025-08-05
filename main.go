@@ -8,6 +8,13 @@ import (
 )
 
 func main(){
+	
+	//check whether piped or not
+	info,_ := os.Stdin.Stat()
+	if info.Mode()&os.ModeCharDevice != 0{
+		fmt.Println("The command is intended to work with pipes")
+		os.Exit(1)
+	}
 
 	var output[] rune
 
