@@ -17,9 +17,9 @@ func cowlourful (message string) string {
 	msgRunes := []rune(message)
 	msgLen := len(msgRunes)
 	//top of bubble
-	bubble.WriteString(" "+strings.Repeat("_", msgLen+2)+"\n")
+	bubble.WriteString(" "+strings.Repeat("-", msgLen+2)+"\n")
 	
-	bubble.WriteString("<")
+	bubble.WriteString("< ")
 
 	for i, char:= range msgRunes{
 		bubble.WriteString(getColour(i,msgLen))
@@ -27,9 +27,9 @@ func cowlourful (message string) string {
 	}
 
 	bubble.WriteString("\x1b[0m")
-	bubble.WriteString(">\n")
+	bubble.WriteString(" >\n")
 	//bottom of bubble
-	bubble.WriteString(" "+strings.Repeat("_",msgLen+2)+"\n")
+	bubble.WriteString(" "+strings.Repeat("-",msgLen+2)+"\n")
 
 	return bubble.String() + cowArt
 
