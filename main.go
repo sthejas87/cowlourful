@@ -6,6 +6,7 @@ import (
 	"io"
 	"fmt"
 	"math"
+	"strings"
 )
 
 func getColour (index, total int) string {
@@ -31,25 +32,17 @@ func main(){
 		os.Exit(1)
 	}
 	
-	RESET := "\x1b[0m"
-	
-	var output[] rune
+	var message string
 
 	reader := bufio.NewReader(os.Stdin) // to read input from Stdin
-	for{
-		input, _, err := reader.ReadRune() // read Rune
-		if err!= nil && err == io.EOF {
-		break
-		}// break when EOF reached
-		output = append(output, input)
+
+	input, err := io.ReadAll(reader) // read Rune
+	if err!= nil {
+		os.Exit(1)
 	}
-
-	totalLength := len(output)
 	
-	for i, char := range output{
-		colour := getColour(i, totalLength)
-		fmt.Printf("%s%c", colour, char)
-	}	
-
-	fmt.Print(RESET)
+	message = strings.TrimSpace(string(input))
+	
+	finalOutput := cowlourful(message)
+	fmt.Println(finalOutput)
 }
