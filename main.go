@@ -3,10 +3,8 @@ package main
 import (
 	"bufio"
 	"os"
-	"io"
 	"fmt"
 	"math"
-	"strings"
 )
 
 func getColour (index, total int) string {
@@ -32,17 +30,14 @@ func main(){
 		os.Exit(1)
 	}
 	
-	var message string
+	var messages []string
 
-	reader := bufio.NewReader(os.Stdin) // to read input from Stdin
+	reader := bufio.NewScanner(os.Stdin) // to read input from Stdin
 
-	input, err := io.ReadAll(reader) // read Rune
-	if err!= nil {
-		os.Exit(1)
-	}
-	
-	message = strings.TrimSpace(string(input))
-	
-	finalOutput := cowlourful(message)
+	for reader.Scan(){
+		messages = append(messages, reader.Text())
+	}	
+
+	finalOutput := cowlourful(messages)
 	fmt.Println(finalOutput)
 }
