@@ -5,6 +5,7 @@ import (
 	"os"
 	"fmt"
 	"math"
+	"golang.org/x/term"
 )
 
 func getColour (index, total int) string {
@@ -37,7 +38,12 @@ func main(){
 	for reader.Scan(){
 		messages = append(messages, reader.Text())
 	}	
+	
+	width, _, err := term.GetSize(int(os.Stdout.Fd()))
+	if err!=nil || width<4 { //min required for bubble
+		width = 80
+	}
 
-	finalOutput := cowlourful(messages)
+	finalOutput := cowlourful(messages, width)
 	fmt.Println(finalOutput)
 }
